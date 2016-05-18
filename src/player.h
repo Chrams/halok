@@ -1,3 +1,6 @@
+#ifndef _PLAYER_H
+#define _PLAYER_H
+
 //---------------------------
 //typedefs
 //---------------------------
@@ -6,3 +9,5 @@ typedef struct sPlayer{
     int answer;
     int score;
 } sPlayer;
+
+#endif
