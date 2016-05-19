@@ -43,4 +43,18 @@ void getQuestions(sQuestion* db, int qnum, char* buffer, int buff_size, FILE* fp
 }
 
 
+
+int checkAnswers(char* buffer){
+    /*if(strstr(buffer,"0")!=NULL || strstr(buffer,"1")!=NULL || strstr(buffer,"2")!=NULL ||
+       strstr(buffer,"3")!=NULL || strstr(buffer,"4")!=NULL || strstr(buffer,"5")!=NULL ||
+       strstr(buffer,"6")!=NULL || strstr(buffer,"7")!=NULL || strstr(buffer,"8")!=NULL ||
+       strstr(buffer,"9")!=NULL || strstr(buffer,"-")!=NULL || strstr(buffer,"-")!=NULL)*/
+       if(buffer[0]=='0' || buffer[0]=='1' || buffer[0]=='2' || buffer[0]=='3' || buffer[0]=='4' ||
+       buffer[0]=='5' || buffer[0]=='6' || buffer[0]=='7' || buffer[0]=='8' || buffer[0]=='9' || buffer[0]=='-' || buffer[0]=='-')
+       return 1;
+       else return 0;
+    
+}
+
+
 #endif

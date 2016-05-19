@@ -11,7 +11,7 @@
 #define PORT_NO 2234
 #define MAX_WAITING_CLIENTS 10
 #define SERVER_ADDR "127.0.0.1"
-#define DEBUG 1
+#define DEBUG 0
 
 int fd;
 int flags;
@@ -28,11 +28,15 @@ char buffer[BUFFSIZE+1];
 char player_name[255];
 
 int main(int argc, char* argv[]){
-
-    //while(strlen(player_name) < 3){
-        printf("Who are you? (Your nick sould be at least 3 characters.)\n");
+    printf("- - - - - - - - - - - - - - - - - - - - - - - -\n");
+    printf("Kviz client\n");
+    printf("- - - - - - - - - - - - - - - - - - - - - - - -\n");
+    
+    
+    while(strlen(player_name) < 4){
+        printf("Who are you? (Your nick sould be at least 3 characters.)\n>");
         fgets(player_name,sizeof(player_name),stdin);
-    //}
+    }
     printf("Hello %s\n",player_name);
     
     //networking
@@ -121,14 +125,16 @@ int main(int argc, char* argv[]){
             return -3;
         }
         
-        printf("BUFF: %s",buffer);
+        if(DEBUG) printf("BUFF: %s",buffer);
         
         err = recv(fd, buffer, bytes, flags);
         if(err<0){
             printf("ERROR: Cannot receive from socket\n");
             return -4;
         }
-        printf("%s",buffer);
+        if(strstr(buffer,"Draw")!=NULL)
+        printf("Draw!\n");
+        else printf("%s scores.\n",buffer);
         
         
         
@@ -136,7 +142,12 @@ int main(int argc, char* argv[]){
     }
     
     err = recv(fd, buffer, bytes, flags);
-    printf("End of the game.\n %s\n",buffer);
+    printf("End of the game.\n");
+    if(strstr(buffer,player_name)!=NULL)
+    printf("- - - - - You won! - - - - -\n");
+    else if(strstr(buffer,"Draw")!=NULL)
+    printf("- - - - - Draw! - - - - -\n");
+    else printf("- - - - - You lost the game! - - - - -\n");
     
     
     
